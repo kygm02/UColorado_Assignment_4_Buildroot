@@ -17,6 +17,11 @@ jobs:
           - uses: webfactory/ssh-agent@v0.5.3
             with:
                 ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          - name: Fix permissions for Buildroot
+            run: |
+              sudo chown -R $(id -u):$(id -g) $GITHUB_WORKSPACE
+              sudo chown -R $(id -u):$(id -g) /github/home/
+              chmod -R u+rwX $GITHUB_WORKSPACE
           - name: Run full test
             env:
               GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
