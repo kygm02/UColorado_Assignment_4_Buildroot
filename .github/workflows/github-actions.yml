@@ -17,10 +17,9 @@ jobs:
           
           - name: Fix flock compatibility
             run: |
-              mv /usr/bin/flock /usr/bin/flock.orig
-              printf '#!/bin/sh\nwhile [ "${1#-}" != "$1" ]; do shift; done\nexec "$@"\n' > /usr/bin/flock
+              apt-get install -y util-linux 2>/dev/null || true
+              printf '#!/bin/sh\nwhile [ "${1#-}" != "$1" ]; do shift; done\nexec "$@"\n' > /usr/local/bin/flock
               chmod +x /usr/bin/flock
-              echo "flock replaced with wrapper"
 
           - name: Checkout submodules
             run: git submodule update --init --recursive
