@@ -15,9 +15,6 @@ jobs:
         steps:
           - uses: actions/checkout@v2
 
-          - name: Fix workspace permissions
-            run: chmod -R 777 $GITHUB_WORKSPACE
-
           - name: Checkout submodules
             run: git submodule update --init --recursive
 
