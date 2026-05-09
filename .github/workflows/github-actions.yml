@@ -14,12 +14,16 @@ jobs:
         timeout-minutes: 120
         steps:
           - uses: actions/checkout@v2
-          
-          - name: Fix flock compatibility
+
+          - name: Update container packages
             run: |
-              apt-get install -y util-linux 2>/dev/null || true
-              printf '#!/bin/sh\nwhile [ "${1#-}" != "$1" ]; do shift; done\nexec "$@"\n' > /usr/local/bin/flock
-              chmod +x /usr/bin/flock
+              apt-get update
+              apt-get install -y util-linux
+              flock --version
+              which flock
+
+          - name: Fix workspace permissions
+            run: chmod -R 777 $GITHUB_WORKSPACE
 
           - name: Checkout submodules
             run: git submodule update --init --recursive
