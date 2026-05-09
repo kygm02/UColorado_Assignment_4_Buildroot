@@ -9,13 +9,13 @@ jobs:
     full-test:
         container:
             image: cuaesd/aesd-autotest:24-assignment4-buildroot
-            options: --user root                  # ← run as root
+            options: --user root -v /home/kristian/Documents/actions-runner/.dl:/github/home/.dl
         runs-on: self-hosted
         timeout-minutes: 120
         steps:
           - uses: actions/checkout@v2
 
-          - name: Fix workspace permissions       # ← after checkout
+          - name: Fix workspace permissions
             run: chmod -R 777 $GITHUB_WORKSPACE
 
           - name: Checkout submodules
