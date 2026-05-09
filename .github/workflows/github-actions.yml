@@ -25,6 +25,9 @@ jobs:
           - name: Run full test
             env:
               GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
+              FORCE_UNSAFE_CONFIGURE: 1
+              # BR2_TAR_OPTS: Tells 'tar' not to try and restore original file ownership
+              BR2_TAR_OPTS: "--no-same-owner"
             run: ./full-test.sh
           - name: Cleanup
             if: always()
