@@ -11,6 +11,10 @@ jobs:
         runs-on: self-hosted
         timeout-minutes: 120
         steps:
+          - name: Fix workspace permissions      # ← add this step FIRST
+            run: |
+              chmod -R 777 $GITHUB_WORKSPACE || true
+              
           - uses: actions/checkout@v2
           - name: Checkout submodules
             run: git submodule update --init --recursive
@@ -20,9 +24,6 @@ jobs:
           - name: Run full test
             env:
               GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
-              FORCE_UNSAFE_CONFIGURE: 1
-              # BR2_TAR_OPTS: Tells 'tar' not to try and restore original file ownership
-              BR2_TAR_OPTS: "--no-same-owner"
             run: ./full-test.sh
           - name: Cleanup
             if: always()
