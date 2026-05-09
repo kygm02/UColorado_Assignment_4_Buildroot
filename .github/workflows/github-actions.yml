@@ -14,6 +14,13 @@ jobs:
         timeout-minutes: 120
         steps:
           - uses: actions/checkout@v2
+          
+          - name: Fix flock compatibility
+            run: |
+              mv /usr/bin/flock /usr/bin/flock.orig
+              printf '#!/bin/sh\nwhile [ "${1#-}" != "$1" ]; do shift; done\nexec "$@"\n' > /usr/bin/flock
+              chmod +x /usr/bin/flock
+              echo "flock replaced with wrapper"
 
           - name: Checkout submodules
             run: git submodule update --init --recursive
