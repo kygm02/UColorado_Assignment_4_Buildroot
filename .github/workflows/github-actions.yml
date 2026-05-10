@@ -21,9 +21,6 @@ jobs:
               flock --version
               which flock
 
-          - name: Fix workspace permissions
-            run: chmod -R 777 $GITHUB_WORKSPACE
-
           - name: Checkout submodules
             run: git submodule update --init --recursive
 
