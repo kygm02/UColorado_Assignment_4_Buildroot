@@ -24,10 +24,6 @@ jobs:
 
           - name: Checkout submodules
             run: git submodule update --init --recursive
-          - name: Mount tmpfs for build output
-            run: |
-             mkdir -p $GITHUB_WORKSPACE/buildroot/output
-             mount -t tmpfs tmpfs $GITHUB_WORKSPACE/buildroot/output
           
           - uses: webfactory/ssh-agent@v0.5.3
             with:
