@@ -9,7 +9,7 @@ jobs:
     full-test:
         container:
             image: cuaesd/aesd-autotest:24-assignment4-buildroot
-            options: --user root -v /home/kristian/Documents/actions-runner/.dl:/github/home/.dl
+            options: --user root --privileged -v /home/kristian/.dl:/github/home/.dl
         runs-on: self-hosted
         timeout-minutes: 120
         steps:
@@ -22,16 +22,16 @@ jobs:
               flock --version
               which flock
 
-          - name: Fix workspace permissions
-            run: chmod -R 777 $GITHUB_WORKSPACE
-
           - name: Checkout submodules
             run: git submodule update --init --recursive
 
           - uses: webfactory/ssh-agent@v0.5.3
             with:
                 ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
+          
+          - name: Fix permissions
+            run: setfacl -R --remove-all . && setfacl -R --remove-default .
+          
           - name: Run full test
             env:
               GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
