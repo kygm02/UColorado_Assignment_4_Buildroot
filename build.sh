@@ -3,8 +3,8 @@
 #Author: Siddhant Jajoo
 
 source shared.sh
-export HOSTCC=gcc-13
-export HOSTCXX=g++-13
+export HOSTCC=$(command -v gcc-13 || command -v gcc)
+export HOSTCXX=$(command -v g++-13 || command -v g++)
 export BR2_DL_DIR=${HOME}/.dl 
 
 EXTERNAL_REL_BUILDROOT=../base_external
