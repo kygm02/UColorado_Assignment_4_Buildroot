@@ -5,6 +5,7 @@
 source shared.sh
 export HOSTCC=gcc-13
 export HOSTCXX=g++-13
+export BR2_DL_DIR=${HOME}/.dl 
 
 EXTERNAL_REL_BUILDROOT=../base_external
 git submodule init
