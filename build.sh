@@ -34,4 +34,5 @@ else
 fi
 
 make -C buildroot O=${OUTPUT_DIR} BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT} -j$(nproc)
+rm -rf buildroot/output
 ln -sfn ${OUTPUT_DIR} buildroot/output
