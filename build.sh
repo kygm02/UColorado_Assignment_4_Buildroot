@@ -3,6 +3,8 @@
 #Author: Siddhant Jajoo
 
 source shared.sh
+export HOSTCC=gcc-13
+export HOSTCXX=g++-13
 
 EXTERNAL_REL_BUILDROOT=../base_external
 git submodule init
