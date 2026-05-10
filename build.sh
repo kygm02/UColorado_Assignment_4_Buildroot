@@ -5,6 +5,8 @@
 source shared.sh
 export HOSTCC=$(command -v gcc-13 || command -v gcc)
 export HOSTCXX=$(command -v g++-13 || command -v g++)
+export BR2_TAR_OPTIONS="--no-same-owner"
+
 #export BR2_DL_DIR=${HOME}/.dl
 
 
